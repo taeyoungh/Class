@@ -45,7 +45,17 @@ $ cd 1.Fastq
 $ sbatch cutadapt.sbatch
 
 # 2. Alignment
+To map RNA-seq reads on the genome, we will use STAR. You first need to create a genome index then run STAR for mapping.
 
+### Creating a genome index 
+**This steps takes time, so let's use a pre-made index in /home/thwang12/ME-440/taeyoung/Genome/STAR_index.**
+First, check the batch script and modify it necessarily.
+$ nano ./Script/star_index.sbatch
+Then, go to the folder and submit a job.  
+$ cd Genome  
+$ sbatch star_index.sbatch
+
+### Mapping
 First, check the batch script and modify it necessarily.
 $ nano ./Script/star_align.sbatch
 Then, go to the folder and submit a job.  
@@ -54,24 +64,25 @@ $ sbatch star_align.sbatch
 
 # 3. Counting
 
+### featureCounts
 First, check the batch script and modify it necessarily.
 $ nano ./Script/featureCounts.sbatch
 Then, go to the folder and submit a job.  
 $ cd 3.Count  
 $ sbatch featureCounts.sbatch
 
-# 4. Result
+### Summary
 In this step, we will use a R script to save count results in a single Rda file.  
 Use an interaction mode to run R script line by line or use an Rstudio session through portoal.rockfish.edu  
 
-### Interaction mode
+#### Interaction mode
 
 $ interact -n 1 -m 3g -t 01:00:00
 
 $ module load R  
 Then run makeCountTable.R line by line. 
 
-### Rstudio on portal.rockfish.edu
+#### Rstudio on portal.rockfish.edu
 Run makeCountTable.R line by line. 
 
 # 5. Differential expression analysis
